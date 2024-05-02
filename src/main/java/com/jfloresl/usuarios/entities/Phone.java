@@ -3,6 +3,7 @@ package com.jfloresl.usuarios.entities;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.v3.oas.annotations.Hidden;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,6 +15,7 @@ import java.util.UUID;
  * @author jfloresl
  *
  */
+@Hidden
 @Entity
 @Table(name="phones")
 @NoArgsConstructor
