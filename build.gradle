@@ -33,9 +33,11 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'com.auth0:java-jwt:4.3.0'
 // https://mvnrepository.com/artifact/io.springfox/springfox-swagger2
-    implementation 'io.springfox:springfox-swagger2:3.0.0'
+    //implementation 'io.springfox:springfox-swagger2:3.0.0'
 // https://mvnrepository.com/artifact/io.springfox/springfox-swagger-ui
-    implementation 'io.springfox:springfox-swagger-ui:3.0.0'
+    //implementation 'io.springfox:springfox-swagger-ui:3.0.0'
+// https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-ui
+    implementation 'org.springdoc:springdoc-openapi-ui:1.8.0'
 
 }
 

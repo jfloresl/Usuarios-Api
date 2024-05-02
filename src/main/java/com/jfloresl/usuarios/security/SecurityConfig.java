@@ -32,6 +32,13 @@ public class SecurityConfig {
                         customizeRequests
                                 .antMatchers("/api/auth/register").permitAll()
                                 .antMatchers("/api/auth/register/**").permitAll()
+                                .antMatchers("/api/auth/login").permitAll()
+                                .antMatchers("/api/auth/login/**").permitAll()
+                                .antMatchers("/v3/api-docs").permitAll()
+                                .antMatchers("/v3/api-docs/**").permitAll()
+                                .antMatchers("/swagger-ui.html").permitAll()
+                                .antMatchers("/swagger-ui").permitAll()
+                                .antMatchers("/swagger-ui/**").permitAll()
                                 .anyRequest()
                                 .authenticated()
                                 .and()

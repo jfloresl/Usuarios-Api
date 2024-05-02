@@ -8,6 +8,7 @@ import java.util.UUID;
 
 import javax.transaction.Transactional;
 
+import com.jfloresl.usuarios.entities.dto.LoginDto;
 import com.jfloresl.usuarios.entities.dto.RegisterDto;
 import com.jfloresl.usuarios.security.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -88,7 +89,6 @@ public class UserService {
 		if(!existEmail(user.getEmail())) {
 			return Constantes.emailExistente;
 		}
-		System.out.println(user.getPassword());
 		if(!checkPasswordFormat(user.getPassword())) {
 			System.out.println("password invalida");
 			return Constantes.passwordInvalid;
@@ -131,11 +131,7 @@ public class UserService {
 	 */
 	private boolean checkPasswordFormat(String password) {
 		String regex = Constantes.passwordFormat;
-		System.out.println(regex);
-		System.out.println(password);
 		boolean isEmailValid = password.matches(regex);
-		System.out.println(isEmailValid);
-
 		return isEmailValid;
 	}
 
@@ -287,5 +283,29 @@ public class UserService {
 			return ResponseHandler.generateResponse(Constantes.userSaveError, HttpStatus.BAD_REQUEST);
 		}
 
+	}
+
+	public ResponseEntity<Object> login(LoginDto loginDto) {
+		String validUser=parametersLogin(loginDto);
+		if (!validUser.equals("0")) {
+			return ResponseHandler.generateResponse(validUser, HttpStatus.BAD_REQUEST);
+		}
+		Optional<User> user = Optional.ofNullable(userRepository.findByEmail(loginDto.getEmail()));
+		if(user.isPresent() && user.get().getPassword().equals(loginDto.getPassword())) {
+///verificar token valido
+			return ResponseHandler.generateResponse(user.get().getToken(), HttpStatus.OK);
+		}
+		return ResponseHandler.generateResponse(Constantes.userNotFound, HttpStatus.BAD_REQUEST);
+	}
+
+	private String parametersLogin(LoginDto loginDto) {
+		if(!UserUtils.isNullOrEmpty(loginDto.getEmail()) ||!UserUtils.isNullOrEmpty(loginDto.getPassword())){
+			if(!emailFormat(loginDto.getEmail())) {
+				return Constantes.emailInvalid;
+			}
+		}else {
+			return Constantes.credentialsInvalid;
+		}
+		return "0";
 	}
 }

@@ -26,5 +26,6 @@ public class Constantes {
 	public static String userInvalid="Nombre invalido";
 
 	public static String userSaveError="Error al guardar usuario";
+	public static String credentialsInvalid = "credenciales invalidas";
 
 }
