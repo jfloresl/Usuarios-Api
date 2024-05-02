@@ -76,7 +76,7 @@ public class UserService {
 
 	}
 
-	private String parametersUser(User user) {
+	public String parametersUser(User user) {
 		if(UserUtils.isNullOrEmpty(user.getName())){
 			return Constantes.userInvalid;
 		}
@@ -96,7 +96,7 @@ public class UserService {
 		return "0";
 	}
 
-	private String parametersRegister(RegisterDto user) {
+	public String parametersRegister(RegisterDto user) {
 		if(UserUtils.isNullOrEmpty(user.getName())){
 			return Constantes.userInvalid;
 		}
@@ -118,7 +118,7 @@ public class UserService {
 	}
 
 
-	private String tokenGenerator(String email, String password) {
+	public String tokenGenerator(String email, String password) {
         //String input = email + password;
         UUID uuid = UUID.randomUUID();
         //UUID uuid = UUID.nameUUIDFromBytes(input.getBytes(StandardCharsets.UTF_8));
@@ -129,20 +129,18 @@ public class UserService {
 	 * @param password
 	 * @return
 	 */
-	private boolean checkPasswordFormat(String password) {
+	public boolean checkPasswordFormat(String password) {
 		String regex = Constantes.passwordFormat;
-		boolean isEmailValid = password.matches(regex);
-		return isEmailValid;
+        return password.matches(regex);
 	}
 
 	/**
 	 * @param email
 	 * @return
 	 */
-	private boolean emailFormat(String email) {
+	public boolean emailFormat(String email) {
 		String regex = Constantes.emailFormat;
-		boolean isEmailValid = email.matches(regex);
-		return isEmailValid;
+        return email.matches(regex);
 	}
 
 	/**
@@ -209,7 +207,7 @@ public class UserService {
         
 	}
 
-	private String parametersUpdateUser(User user) {
+	public String parametersUpdateUser(User user) {
 		
 		if (null==user.getId() || null==user.getToken()) {
     		return Constantes.idInvalid;
@@ -292,13 +290,17 @@ public class UserService {
 		}
 		Optional<User> user = Optional.ofNullable(userRepository.findByEmail(loginDto.getEmail()));
 		if(user.isPresent() && user.get().getPassword().equals(loginDto.getPassword())) {
-///verificar token valido
-			return ResponseHandler.generateResponse(user.get().getToken(), HttpStatus.OK);
+		///verificar token valido sino generar nuevo
+			if(jwtUtil.isValid(user.get().getToken())) {
+				return ResponseHandler.generateResponse(user.get().getToken(), HttpStatus.OK);
+			}else{
+				return ResponseHandler.generateResponse(jwtUtil.create(user.get().getEmail()), HttpStatus.OK);
+			}
 		}
 		return ResponseHandler.generateResponse(Constantes.userNotFound, HttpStatus.BAD_REQUEST);
 	}
 
-	private String parametersLogin(LoginDto loginDto) {
+	public String parametersLogin(LoginDto loginDto) {
 		if(!UserUtils.isNullOrEmpty(loginDto.getEmail()) ||!UserUtils.isNullOrEmpty(loginDto.getPassword())){
 			if(!emailFormat(loginDto.getEmail())) {
 				return Constantes.emailInvalid;
