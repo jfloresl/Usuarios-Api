@@ -1,5 +1,7 @@
 package com.jfloresl.usuarios.service;
 
+import com.jfloresl.usuarios.repository.UserRepository;
+import com.jfloresl.usuarios.security.JwtUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -7,10 +9,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class UserServiceTest {
     UserService userService;
-
+    JwtUtil jwtUtil;
+    UserRepository userRepository;
     @BeforeEach
     public void instanciarObjeto(){
-        userService = new UserService();
+        userService = new UserService(userRepository,jwtUtil);
     }
     @Test
     void checkPasswordFormatTest() {
