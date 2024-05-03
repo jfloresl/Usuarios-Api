@@ -35,5 +35,10 @@ public class GeneralException {
     public ResponseEntity<Object> nullPointerException() {
 		return ResponseHandler.generateResponse(Constantes.jsonError, HttpStatus.BAD_REQUEST);
     }
-	
+
+    @ExceptionHandler(org.springframework.security.core.userdetails.UsernameNotFoundException.class)
+    public ResponseEntity<Object> userMessageException() {
+        return ResponseHandler.generateResponse(Constantes.missingError, HttpStatus.BAD_REQUEST);
+    }
+
 }

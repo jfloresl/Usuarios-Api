@@ -49,18 +49,23 @@ public class JwtFilter extends OncePerRequestFilter {
 
         // 3. validar usuario del UserDeatailsServices
         String email = this.jwtUtil.getEmail(jwt);
-        User user= (User) this.userDetailsService.loadUserByUsername(email);
-        // 4. cargar el usuario al contecto de seguridad
-        UsernamePasswordAuthenticationToken authenticationToken= new UsernamePasswordAuthenticationToken(
-                user.getUsername(),user.getPassword(),user.getAuthorities()
-        );
+        try {
+            User user = (User) this.userDetailsService.loadUserByUsername(email);
+            // 4. cargar el usuario al contecto de seguridad
+            UsernamePasswordAuthenticationToken authenticationToken= new UsernamePasswordAuthenticationToken(
+                    user.getUsername(),user.getPassword(),user.getAuthorities()
+            );
+            // cargar al contexto de seguridad
+            authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+            SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+            filterChain.doFilter(request,response);
+        }catch (Exception e){
+            filterChain.doFilter(request,response);
+            return;
+        }
 
-        // cargar al contexto de seguridad
 
 
-        authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-        SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-        filterChain.doFilter(request,response);
 
     }
 }

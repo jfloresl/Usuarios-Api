@@ -26,38 +26,39 @@ import com.jfloresl.usuarios.utils.Constantes;
 @RequestMapping("/api/users")
 
 public class UserController {
-	
+
 	@Autowired
 	private UserService userService;
 
-	@PostMapping({"all","all/"})
-    public ResponseEntity<Object> findAll(@RequestBody Map<String, String> request){
-        return userService.findAll(request);
-    }
-
-	@PostMapping({"find","find/"})
-    public ResponseEntity<Object> findOneByIdPost(@RequestBody Map<String, String> request){
-		return userService.findById(request);
-    }
-		
-	//crear
-	@PostMapping({"create","create/"})
-	public ResponseEntity<Object> createUser(@RequestBody User user) {		
-		return userService.createdUser(user);
+	@PostMapping({"all", "all/"})
+	public ResponseEntity<Object> findAll(@RequestBody Map<String, String> request) {
+		return userService.findAll(request);
 	}
 
-	//borrar
-	@DeleteMapping({"delete","delete/"})
-    public ResponseEntity<Object> deleteById(@RequestBody Map<String, String> request){
-		return userService.deleteById(request);
-    }
+		@PostMapping({"find","find/"})
+		public ResponseEntity<Object> findOneByIdPost(@RequestBody Map<String, String> request){
+			return userService.findById(request);
+		}
+	/*
 
+		//crear
+		@PostMapping({"create","create/"})
+		public ResponseEntity<Object> createUser(@RequestBody User user) {
+			return userService.createdUser(user);
+		*/
+	//borrar
+	@DeleteMapping({"delete", "delete/"})
+	public ResponseEntity<Object> deleteById(@RequestBody Map<String, String> request) {
+		return userService.deleteById(request);
+	}
+
+/*
 	//modificar
 	@PutMapping({"edit","edit/"})
 	public ResponseEntity<Object> updateUser(@RequestBody User user) {		
 		return userService.updateUser(user);
 	}
-	
+	*/
 	//default
 	@RequestMapping(value = {"*/*","*"}, method = {RequestMethod.POST,RequestMethod.GET,RequestMethod.PUT,RequestMethod.DELETE})
 	public ResponseEntity<Object> notMappingUrl(HttpServletResponse response) {
