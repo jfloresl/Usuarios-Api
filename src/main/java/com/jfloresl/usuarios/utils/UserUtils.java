@@ -15,4 +15,8 @@ public class UserUtils {
 	public static boolean isNullOrEmpty(List<Phone> phones) {
 		return phones == null || phones.size()==0;
 	}
+
+	public static boolean isNumber(String str) {
+		return str.matches(Constantes.numberValid) ;
+	}
 }

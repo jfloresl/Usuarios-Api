@@ -141,6 +141,10 @@ public class UserService {
 		if (!validUser.equals("0")) {
 			return ResponseHandler.generateResponse(validUser, HttpStatus.BAD_REQUEST);
 		}
+		String validPhones=parametersRegisterPhone(registerDto);
+		if (!validPhones.equals("0")) {
+			return ResponseHandler.generateResponse(validPhones, HttpStatus.BAD_REQUEST);
+		}
 		User user = new User();
 		user.setName(registerDto.getName());
 		user.setEmail(registerDto.getEmail());
@@ -180,6 +184,22 @@ public class UserService {
 			return ResponseHandler.generateResponse(Constantes.userSaveError, HttpStatus.BAD_REQUEST);
 		}
 
+	}
+
+	private String parametersRegisterPhone(RegisterDto registerDto) {
+
+		for (Phone p:registerDto.getPhones()) {
+			if(UserUtils.isNullOrEmpty(p.getNumber()) || !UserUtils.isNumber(p.getNumber())){
+				return Constantes.numberPhoneInvalid;
+			}
+			if(UserUtils.isNullOrEmpty(p.getCitycode()) || !UserUtils.isNumber(p.getCitycode())){
+				return Constantes.cityCodeInvalid;
+			}
+			if(UserUtils.isNullOrEmpty(p.getCountrycode()) || !UserUtils.isNumber(p.getCountrycode())){
+				return Constantes.coutryCodeInvalid;
+			}
+		}
+		return "0";
 	}
 
 	public ResponseEntity<Object> login(LoginDto loginDto) {

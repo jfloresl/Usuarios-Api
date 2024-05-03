@@ -28,4 +28,9 @@ public class Constantes {
 	public static String userSaveError="Error al guardar usuario";
 	public static String credentialsInvalid = "credenciales invalidas";
 
+
+	public static String numberValid="[0-9]+";
+	public static String numberPhoneInvalid="numero de telefono invalido";
+	public static String cityCodeInvalid="codigo de ciudad invalido";
+	public static String coutryCodeInvalid = "codigo de pais invalido";
 }
