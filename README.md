@@ -164,3 +164,6 @@ Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqdWFuQGRvbWluaW8uY2wiLCJl
 
 ### Docs
 http://localhost:8082/swagger-ui/index.html
+
+### Diagrama
+![img.png](img.png)
