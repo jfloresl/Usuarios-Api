@@ -3,8 +3,6 @@ package com.jfloresl.usuarios.service;
 import java.time.LocalDate;
 import java.util.*;
 
-import javax.transaction.Transactional;
-
 import com.jfloresl.usuarios.entities.Phone;
 import com.jfloresl.usuarios.entities.dto.LoginDto;
 import com.jfloresl.usuarios.entities.dto.RegisterDto;
@@ -167,15 +165,15 @@ public class UserService {
 			respDto.setToken(user1.getToken());
 			respDto.setIsActive(user1.getIsActive());
 			System.out.println("registerDto.getPhones(): "+registerDto.getPhones());
-	try{
-		for (Phone p:registerDto.getPhones()) {
-			System.out.println("fono en el register: "+p);
-			p.setUserId(user1.getId());
-			this.phoneRepository.save(p);
-		}
-	}catch (Exception e){
-		System.out.println("error al guardar un telefono");
-	}
+			try{
+				for (Phone p:registerDto.getPhones()) {
+					System.out.println("fono en el register: "+p);
+					p.setUserId(user1.getId());
+					this.phoneRepository.save(p);
+				}
+			}catch (Exception e){
+				System.out.println("error al guardar un telefono");
+			}
 
 			return ResponseHandler.generateResponse(respDto, HttpStatus.OK);
 		}catch (Exception e){
@@ -198,7 +196,7 @@ public class UserService {
 				return ResponseHandler.generateResponse(jwtUtil.create(user.get().getEmail()), HttpStatus.OK);
 			}
 		}
-		return ResponseHandler.generateResponse(Constantes.userNotFound, HttpStatus.BAD_REQUEST);
+		return ResponseHandler.generateResponse(Constantes.userNotFound, HttpStatus.NOT_FOUND);
 	}
 
 	public String parametersLogin(LoginDto loginDto) {

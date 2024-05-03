@@ -32,6 +32,7 @@ public class AuthController {
 
     @Operation(summary = "Registrar a un usuario")
     @ApiResponse(responseCode = "200", description = "Successful registration", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ResponseEntity.class)))
+    @ApiResponse(responseCode = "400", description = "Formato de usuario invalido", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ResponseEntity.class)))
     @PostMapping({"/register","/register/"})
     public ResponseEntity<Object> register(@RequestBody RegisterDto registerDto){
         return userService.registerUser(registerDto);
@@ -39,6 +40,8 @@ public class AuthController {
 
     @Operation(summary = "login")
     @ApiResponse(responseCode = "200", description = "Successful login", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ResponseEntity.class)))
+    @ApiResponse(responseCode = "400", description = "Formato de login invalido", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ResponseEntity.class)))
+    @ApiResponse(responseCode = "404", description = "Usuario no encontrado", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ResponseEntity.class)))
     @PostMapping({"/login","/login/"})
     public ResponseEntity<Object> login(@RequestBody LoginDto loginDto){
         return userService.login(loginDto);

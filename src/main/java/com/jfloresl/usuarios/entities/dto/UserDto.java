@@ -2,7 +2,6 @@ package com.jfloresl.usuarios.entities.dto;
 
 import com.jfloresl.usuarios.entities.Phone;
 import lombok.Data;
-import org.springframework.lang.NonNull;
 
 import java.io.Serializable;
 import java.time.LocalDate;
