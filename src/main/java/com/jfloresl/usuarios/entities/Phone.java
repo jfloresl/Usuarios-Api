@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.Hidden;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Type;
 import org.springframework.lang.NonNull;
 
 import java.util.UUID;
@@ -32,10 +33,6 @@ public class Phone {
 	private String citycode;
 	@NonNull
 	private String countrycode;
-
-	@JsonIgnore
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "user_id")
-	private User user;
-
+	@Type(type="org.hibernate.type.UUIDCharType")
+	private UUID userId;
 }

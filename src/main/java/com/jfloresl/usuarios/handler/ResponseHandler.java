@@ -1,5 +1,7 @@
 package com.jfloresl.usuarios.handler;
 
+import com.jfloresl.usuarios.entities.dto.RespDto;
+import com.jfloresl.usuarios.entities.dto.UserDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -26,14 +28,14 @@ public class ResponseHandler {
         return new ResponseEntity<Object>(map,status);
     }
 
-	public static ResponseEntity<Object> generateResponse(User user, HttpStatus status) {
+	public static ResponseEntity<Object> generateResponse(RespDto user, HttpStatus status) {
 		Map<String, Object> map = new HashMap<String, Object>();
         map.put("status", String.valueOf((status.value())));
         map.put("message", user);
         return new ResponseEntity<Object>(map,status);
 	}
 
-	public static ResponseEntity<Object> generateResponse(List<User> lista, HttpStatus status) {
+	public static ResponseEntity<Object> generateResponse(List<UserDto> lista, HttpStatus status) {
 		Map<String, Object> map = new HashMap<String, Object>();
         map.put("status", String.valueOf((status.value())));
         map.put("message", lista);

@@ -34,8 +34,5 @@ public class User {
 	private LocalDate modified;
 	private LocalDate last_login;
 	private String token;
-	private String isactive;
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-	private List<Phone> phones = new ArrayList<>();
-
+	private String isActive;
 }
